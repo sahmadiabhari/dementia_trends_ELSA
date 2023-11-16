@@ -810,12 +810,12 @@ gen ci2_`num'=1 if ci_score2_`num'==2 & age_`num'>=50 & age_`num'~=.
 **** * Step 2: Calculating an average standardized cognitive function score 
 
 foreach num of numlist 1/9 {
-egen float cfz_r2_`num' = rowmean(cfdscr_std_r2_`num' cflisd_std_r2_`num' cflisen_std_r2_`num')
+egen float cfz_r2_`num' = rowmean(cfdscr_std_r_`num' cflisd_std_r_`num' cflisen_std_r_`num')
 }
 
 
 foreach num of numlist 1/9 {
-egen float cfz_r2_nmiss_`num' = rownonmiss(cfdscr_std_r2_`num' cflisd_std_r2_`num' cflisen_std_r2_`num')
+egen float cfz_r2_nmiss_`num' = rownonmiss(cfdscr_std_r_`num' cflisd_std_r_`num' cflisen_std_r_`num')
 }
 
 
