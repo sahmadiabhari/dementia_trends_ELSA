@@ -802,7 +802,7 @@ egen ci_score2_`num'=anycount(cf_date_imp_`num' cf_memory_imp_`num'), values(1)
 
 
 foreach num of numlist 1/9 {
-gen ci2_`num'=1 if ci_score2_`num'>=2 & ci_score2_`num'~=. & age_`num'>=50 & age_`num'~=.
+gen ci2_`num'=1 if ci_score2_`num'==2 & age_`num'>=50 & age_`num'~=.
 }
 
 
