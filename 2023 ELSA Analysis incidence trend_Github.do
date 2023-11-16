@@ -777,7 +777,7 @@ gen adl_prev_9=1 if adl_9==1
 
 
 
-****************** Dementia (bias test is the dementia excluding doctor diagnosis from the definition)
+****************** Dementia (adjective "test" indicates exclusion of doctor diagnosis from the definition of dementia)
 
 
 
