@@ -330,11 +330,6 @@ use "[Folder path name]\2023 ELSA_Wave1to9.dta"
 
 gen sex=.
 
-clear 
-set maxvar 32000
-set more off
-
-
 recode sex .=1 if dhsex_1==1 | dhsex_2==1 | dhsex_3==1 | dhsex_4==1 | dhsex_5==1 | dhsex_6==1 | indsex_7==1 | indsex_8==1 | indsex_9==1
 recode sex .=2 if dhsex_1==2 | dhsex_2==2 | dhsex_3==2 | dhsex_4==2 | dhsex_5==2 | dhsex_6==2 | indsex_7==2 | indsex_8==2| indsex_9==2
 
