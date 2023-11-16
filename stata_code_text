@@ -812,14 +812,59 @@ gen ci2_`num'=1 if ci_score2_`num'>=2 & ci_score2_`num'~=. & age_`num'>=50 & age
 
 
 
-replace ci2_1=. if improve_1>1 & improve_1~=. & cfz_r_2>-1 & cfz_r_3>-1 & cfz_r_4>-1 & cfz_r_5>-1 & cfz_r_6>-1 &  cfz_r_7>-1 & cfz_r_8>-1 & cfz_r_9>-1 
-replace ci2_2=. if improve_2>1 & improve_2~=. & cfz_r_3>-1 & cfz_r_4>-1 & cfz_r_5>-1 & cfz_r_6>-1 &  cfz_r_7>-1 & cfz_r_8>-1 & cfz_r_9>-1 
-replace ci2_3=. if improve_3>1 & improve_3~=. & cfz_r_4>-1 & cfz_r_5>-1 & cfz_r_6>-1 &  cfz_r_7>-1 & cfz_r_8>-1 & cfz_r_9>-1 
-replace ci2_4=. if improve_4>1 & improve_4~=. & cfz_r_5>-1 & cfz_r_6>-1 &  cfz_r_7>-1 & cfz_r_8>-1 & cfz_r_9>-1 
-replace ci2_5=. if improve_5>1 & improve_5~=. & cfz_r_6>-1 &  cfz_r_7>-1 & cfz_r_8>-1 & cfz_r_9>-1 
-replace ci2_6=. if improve_6>1 & improve_6~=. & cfz_r_7>-1 & cfz_r_8>-1 & cfz_r_9>-1 
-replace ci2_7=. if improve_7>1 & improve_7~=. & cfz_r_8>-1 & cfz_r_9>-1 
-replace ci2_8=. if improve_8>1 & improve_8~=. & cfz_r_9>-1 
+**** * Step 2: Calculating an average standardized cognitive function score 
+
+foreach num of numlist 1/9 {
+egen float cfz_r2_`num' = rowmean(cfdscr_std_r2_`num' cflisd_std_r2_`num' cflisen_std_r2_`num')
+}
+
+
+foreach num of numlist 1/9 {
+egen float cfz_r2_nmiss_`num' = rownonmiss(cfdscr_std_r2_`num' cflisd_std_r2_`num' cflisen_std_r2_`num')
+}
+
+
+foreach num of numlist 1/9 {
+replace cfz_r2_`num'=. if cfz_r2_nmiss_`num'<2
+}
+
+
+* Step 3: Improvement in cognitive function score at future waves defined as 1-SD or higher on average standardized cognitive function score
+
+gen improve2_1=cfz_r2_2-cfz_r2_1
+replace improve2_1=cfz_r2_3-cfz_r2_1 if improve2_1==.
+
+gen improve2_2=cfz_r2_3-cfz_r2_2
+replace improve2_2=cfz_r2_4-cfz_r2_2 if improve2_2==.
+
+gen improve2_3=cfz_r2_4-cfz_r2_3
+replace improve2_3=cfz_r2_5-cfz_r2_3 if improve2_3==.
+
+gen improve2_4=cfz_r2_5-cfz_r2_4
+replace improve2_4=cfz_r2_6-cfz_r2_4 if improve2_4==.
+
+gen improve2_5=cfz_r2_6-cfz_r2_5
+replace improve2_5=cfz_r2_7-cfz_r2_5 if improve2_5==.
+
+gen improve2_6=cfz_r2_7-cfz_r2_6
+replace improve2_6=cfz_r2_8-cfz_r2_6 if improve2_6==.
+
+gen improve2_7=cfz_r2_8-cfz_r2_7
+replace improve2_7=cfz_r2_9-cfz_r2_7 if improve2_7==.
+
+gen improve2_8=cfz_r2_9-cfz_r2_8
+
+
+replace ci2_1=. if improve2_1>1 & improve2_1~=. & cfz_r_2>-1 & cfz_r_3>-1 & cfz_r_4>-1 & cfz_r_5>-1 & cfz_r_6>-1 &  cfz_r_7>-1 & cfz_r_8>-1 & cfz_r_9>-1 
+replace ci2_2=. if improve2_2>1 & improve2_2~=. & cfz_r_3>-1 & cfz_r_4>-1 & cfz_r_5>-1 & cfz_r_6>-1 &  cfz_r_7>-1 & cfz_r_8>-1 & cfz_r_9>-1 
+replace ci2_3=. if improve2_3>1 & improve2_3~=. & cfz_r_4>-1 & cfz_r_5>-1 & cfz_r_6>-1 &  cfz_r_7>-1 & cfz_r_8>-1 & cfz_r_9>-1 
+replace ci2_4=. if improve2_4>1 & improve2_4~=. & cfz_r_5>-1 & cfz_r_6>-1 &  cfz_r_7>-1 & cfz_r_8>-1 & cfz_r_9>-1 
+replace ci2_5=. if improve2_5>1 & improve2_5~=. & cfz_r_6>-1 &  cfz_r_7>-1 & cfz_r_8>-1 & cfz_r_9>-1 
+replace ci2_6=. if improve2_6>1 & improve2_6~=. & cfz_r_7>-1 & cfz_r_8>-1 & cfz_r_9>-1 
+replace ci2_7=. if improve2_7>1 & improve2_7~=. & cfz_r_8>-1 & cfz_r_9>-1 
+replace ci2_8=. if improve2_8>1 & improve2_8~=. & cfz_r_9>-1 
+
+
 
 
 foreach num of numlist 1/9 {
