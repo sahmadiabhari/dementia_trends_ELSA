@@ -458,7 +458,7 @@ drop if age_==.
 
 
 gen failure=dementia_test_
-
+* gen failure=dementia_dx_
 
 stset wave, id(id) failure(failure)
 tab _d
@@ -509,13 +509,10 @@ gen lci_stand=((p-(1.96*se))/p)*age_stand
 gen uci_stand=((p+(1.96*se))/p)*age_stand
 
 
-
-
-
-
 drop if wave==6 | wave==9
-* incidence at wave 6 and wave 9 not valid
+* incidence at wave 9 not valid, as transient impairments cannot be detected and excluded.
+* All waves of data valid for analysis involving doctor diagnosis of dementia
 
-twoway (connected age_stand wave), ymtick(0(2)10)
+
 
 
